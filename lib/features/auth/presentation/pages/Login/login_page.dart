@@ -25,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             Expanded(
+              flex: 2,
               child: Container(
                 width: size.width,
                 decoration: BoxDecoration(
@@ -33,31 +34,67 @@ class _LoginPageState extends State<LoginPage> {
                     bottomRight: Radius.circular(120.0),
                   ),
                 ),
-                child: Image.asset(
-                  images.logo,
-                  width: 100,
+                child: Center(
+                  child: SizedBox(
+                    width: 120.0,
+                    child: Image.asset(images.logo),
+                  ),
                 ),
               ),
             ),
             Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Text('Albúm da copa'),
-                  ElevatedButton(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AlbumPage(),
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: const [
+                        Text(
+                          'Login',
+                          style: TextStyle(
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 8.0),
+                        Text(
+                          'Albúm da copa',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    ElevatedButton(
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AlbumPage(),
+                        ),
+                      ),
+                      child: Row(
+                        children: const [
+                          Icon(Icons.person_2_outlined),
+                          VerticalDivider(
+                            color: Colors.white,
+                          ),
+                          Expanded(
+                            child: Center(child: Text('Entrar com google')),
+                          ),
+                        ],
                       ),
                     ),
-                    child: const Text('Entrar com google'),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('Desenvolvido por Pedro Henrique'),
-                  ),
-                ],
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text('Desenvolvido por Pedro Henrique'),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

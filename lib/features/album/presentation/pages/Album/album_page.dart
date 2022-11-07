@@ -28,43 +28,66 @@ class _AlbumPageState extends State<AlbumPage> {
       body: ListView.builder(
         itemCount: 10,
         itemBuilder: (context, index) => ListTile(
-          title: Text('Seleção $index'),
+          title: Text(
+            'Seleção $index',
+            style: const TextStyle(color: Colors.white),
+          ),
         ),
       ),
       drawer: Drawer(
         child: Column(
           children: [
             DrawerHeader(
+              margin: EdgeInsets.zero,
               decoration: BoxDecoration(
                 color: colorScheme.secondary,
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 75,
                     height: 75,
                     child: CircleAvatar(
-                      backgroundColor: Colors.blueGrey.shade200,
+                      backgroundColor: Colors.white,
                     ),
                   ),
                   const SizedBox(width: 16.0),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text('Nome do usuário'),
-                      Text('40/100 figurinhas'),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Nome do usuário',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(color: Colors.white),
+                      ),
+                      Text(
+                        '40/100 figurinhas',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w300,
+                            ),
+                      ),
                     ],
                   )
                 ],
               ),
             ),
             Expanded(
-              child: ListView.separated(
-                itemCount: 10,
-                separatorBuilder: (_, __) => const Divider(),
-                itemBuilder: (_, index) => ListTile(
-                  title: Text('Seleção $index'),
+              child: Container(
+                color: colorScheme.background,
+                child: ListView.separated(
+                  itemCount: 10,
+                  separatorBuilder: (_, __) => const Divider(),
+                  itemBuilder: (_, index) => ListTile(
+                    title: Text(
+                      'Seleção $index',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -76,7 +99,10 @@ class _AlbumPageState extends State<AlbumPage> {
         child: ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(
+              vertical: 20.0,
+              horizontal: 16.0,
+            ),
             backgroundColor: colorScheme.secondary,
           ),
           child: const Text('Comprar figurinhas'),
