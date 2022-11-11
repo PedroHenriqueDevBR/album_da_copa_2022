@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static const Color primaryColor = Color(0XFF941B0C);
   static const Color secondaryColor = Color(0XFFFAA307);
-  static const Color backgroundColor = Color(0XFF212121);
+  static const Color backgroundColor = Color(0XFFFFFFFF);
   static const Color dividerColor = Color(0XFF353535);
 
   static ThemeData get lightTheme => ThemeData(
@@ -17,15 +17,13 @@ class AppTheme {
         appBarTheme: _customAppBarTheme,
         elevatedButtonTheme: _customElevatedButtonThemeData,
         textButtonTheme: _customTextButtonThemeData,
-        dividerColor: dividerColor,
+        // dividerColor: dividerColor,
       );
 
   static AppBarTheme get _customAppBarTheme => const AppBarTheme(
-        backgroundColor: primaryColor,
-        centerTitle: true,
         toolbarHeight: 64,
         foregroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.white),
+        elevation: 0,
       );
 
   static ElevatedButtonThemeData get _customElevatedButtonThemeData =>

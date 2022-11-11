@@ -1,5 +1,7 @@
 import 'package:album_da_copa_2022/features/album/data/models/country_model.dart';
+import 'package:album_da_copa_2022/features/album/presentation/widgets/figure_card.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../shared/styles/images.dart';
@@ -201,6 +203,7 @@ class _AlbumPageState extends State<AlbumPage> {
 
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Menu'),
         actions: [
           CircleAvatar(
             child: Image.asset(images.logo),
@@ -216,133 +219,131 @@ class _AlbumPageState extends State<AlbumPage> {
             children: [
               ListTile(
                 leading: SizedBox(
-                  width: 50,
-                  child: CachedNetworkImage(imageUrl: country.flag),
+                  width: 60,
+                  child: Card(
+                    child: CachedNetworkImage(imageUrl: country.flag),
+                  ),
                 ),
                 trailing: Text(
                   country.name,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: colorScheme.onBackground,
                     fontSize: 16.0,
                   ),
                 ),
               ),
               SizedBox(
-                height: 166,
-                child: ListView.builder(
-                  itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return SizedBox(
-                      height: 150,
-                      width: 120,
-                      child: Container(
-                        margin: const EdgeInsets.all(8.0),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(4.0),
-                          ),
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: CachedNetworkImageProvider(
-                              'https://images.pexels.com/photos/159684/soccer-football-soccer-player-sport-159684.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                            ),
-                          ),
-                        ),
-                        child: Stack(
-                          children: [
-                            Container(),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                height: 166 * 3,
+                child: Scrollbar(
+                  interactive: true,
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1.5,
+                      mainAxisExtent: 175,
+                    ),
+                    dragStartBehavior: DragStartBehavior.down,
+                    itemCount: 10,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return const FigureCard();
+                    },
+                  ),
                 ),
               ),
             ],
           );
         },
       ),
-      drawer: Drawer(
-        child: Column(
-          children: [
-            DrawerHeader(
-              margin: EdgeInsets.zero,
-              decoration: BoxDecoration(
-                color: colorScheme.secondary,
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    width: 75,
-                    height: 75,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(width: 16.0),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Nome do usuário',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge!
-                            .copyWith(color: Colors.white),
-                      ),
-                      Text(
-                        '40/100 figurinhas',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w300,
-                            ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: Container(
-                color: colorScheme.background,
-                child: ListView.separated(
-                  itemCount: countries.length,
-                  separatorBuilder: (_, __) => const Divider(),
-                  itemBuilder: (_, index) {
-                    final country = countries[index];
-                    return ListTile(
-                      leading: SizedBox(
-                        width: 50,
-                        child: CachedNetworkImage(imageUrl: country.flag),
-                      ),
-                      title: Text(
-                        country.name,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        color: colorScheme.secondary,
-        child: ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(
-              vertical: 20.0,
-              horizontal: 16.0,
-            ),
-            backgroundColor: colorScheme.secondary,
+      drawer: DrawerMenu(colorScheme: colorScheme),
+      bottomNavigationBar: buyFiguresWidget(colorScheme: colorScheme),
+    );
+  }
+
+  Widget buyFiguresWidget({required ColorScheme colorScheme}) {
+    return Container(
+      color: colorScheme.secondary,
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(
+            vertical: 20.0,
+            horizontal: 16.0,
           ),
-          child: const Text('Comprar figurinhas'),
+          backgroundColor: colorScheme.secondary,
         ),
+        child: const Text('Comprar figurinhas'),
+      ),
+    );
+  }
+
+  Widget DrawerMenu({required ColorScheme colorScheme}) {
+    return Drawer(
+      child: Column(
+        children: [
+          DrawerHeader(
+            margin: EdgeInsets.zero,
+            decoration: BoxDecoration(
+              color: colorScheme.secondary,
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 75,
+                  height: 75,
+                  child: Image.asset(images.logo),
+                ),
+                const SizedBox(width: 16.0),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Meu albúm',
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            color: colorScheme.primary,
+                          ),
+                    ),
+                    const SizedBox(height: 4.0),
+                    Text(
+                      '40/100 figurinhas',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: colorScheme.primary,
+                            fontWeight: FontWeight.w400,
+                          ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: colorScheme.background,
+              child: ListView.separated(
+                itemCount: countries.length,
+                separatorBuilder: (_, __) => const Divider(),
+                itemBuilder: (_, index) {
+                  final country = countries[index];
+                  return ListTile(
+                    leading: SizedBox(
+                      width: 50,
+                      child: CachedNetworkImage(imageUrl: country.flag),
+                    ),
+                    title: Text(
+                      country.name,
+                      style: TextStyle(
+                        color: colorScheme.onBackground,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

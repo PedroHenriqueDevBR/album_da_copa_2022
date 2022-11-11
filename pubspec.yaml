@@ -10,21 +10,11 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # Cubit dependencies
-  bloc: ^8.0.3
-  flutter_bloc: ^8.0.1
-  get_it: ^7.2.0
-  injectable: ^1.5.3
+  # dependencies
   equatable: ^2.0.3
-  dartz: ^0.10.1
 
   # Data source dependencies
-  flutter_dotenv: ^5.0.2
-  http: ^0.13.4
   shared_preferences: ^2.0.15
-  firebase_core: ^2.1.1
-  firebase_auth: ^4.1.1
-  google_sign_in: ^5.4.0
 
   # UI dependencies
   cached_network_image: ^3.2.1
@@ -36,8 +26,6 @@ dev_dependencies:
     sdk: flutter
   
   flutter_lints: ^2.0.0
-  build_runner: ^2.2.0
-  injectable_generator: ^1.5.3
   flutter_launcher_icons: ^0.10.0
   
 flutter:
