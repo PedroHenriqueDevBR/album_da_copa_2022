@@ -22,172 +22,318 @@ class _AlbumPageState extends State<AlbumPage> {
       flag:
           'https://s3.static.brasilescola.uol.com.br/be/2022/10/bandeira-catar.jpg',
       name: 'Catar',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.white,
+        Colors.red.shade700,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s2.static.brasilescola.uol.com.br/be/2022/10/equador.jpg',
       name: 'Equador',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.yellow,
+        Colors.blue,
+        Colors.red,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s2.static.brasilescola.uol.com.br/be/2022/10/holanda.JPG',
       name: 'Holanda',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.red,
+        Colors.white,
+        Colors.blue,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s2.static.brasilescola.uol.com.br/be/2022/10/senegal.JPG',
       name: 'Senegal',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.green,
+        Colors.yellow,
+        Colors.red,
+      ],
     ));
     countries.add(CountryModel(
       flag:
           'https://s3.static.brasilescola.uol.com.br/be/2022/10/estados-unidos.jpg',
       name: 'Estados Unidos',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.blue,
+        Colors.red,
+        Colors.white,
+      ],
     ));
     countries.add(CountryModel(
       flag:
           'https://s4.static.brasilescola.uol.com.br/be/2022/10/bandeira-inglaterra.jpg',
       name: 'Inglaterra',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.white,
+        Colors.red,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s1.static.brasilescola.uol.com.br/be/2022/10/ira.jpg',
       name: 'Irã',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.green,
+        Colors.white,
+        Colors.red,
+      ],
     ));
     countries.add(CountryModel(
       flag:
           'https://s3.static.brasilescola.uol.com.br/be/2022/10/bandeira-pais-de-gales.jpg',
       name: 'País de Gales',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.green,
+        Colors.white,
+        Colors.red,
+      ],
     ));
     countries.add(CountryModel(
       flag:
           'https://s5.static.brasilescola.uol.com.br/be/2022/10/argentina.JPG',
       name: 'Argentina',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.blue,
+        Colors.white,
+      ],
     ));
     countries.add(CountryModel(
       flag:
           'https://s3.static.brasilescola.uol.com.br/be/2022/10/arabia-saudita.JPG',
       name: 'Arábia Saudita',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.green,
+        Colors.white,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s5.static.brasilescola.uol.com.br/be/2022/10/mexico.jpg',
       name: 'México',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.green,
+        Colors.white,
+        Colors.red,
+      ],
     ));
     countries.add(CountryModel(
       flag:
           'https://s3.static.brasilescola.uol.com.br/be/2022/10/bandeira-polonia.jpg',
       name: 'Polônia',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.red,
+        Colors.white,
+      ],
     ));
     countries.add(CountryModel(
       flag:
           'https://s2.static.brasilescola.uol.com.br/be/2022/10/australia.JPG',
       name: 'Austrália',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.red,
+        Colors.blue,
+        Colors.white,
+      ],
     ));
     countries.add(CountryModel(
       flag:
           'https://s1.static.brasilescola.uol.com.br/be/2022/10/dinamarca.jpg',
       name: 'Dinamarca',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.red,
+        Colors.white,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s4.static.brasilescola.uol.com.br/be/2022/10/franca.jpg',
       name: 'França',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.blue,
+        Colors.white,
+        Colors.red,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s1.static.brasilescola.uol.com.br/be/2022/10/tunisia.jpg',
       name: 'Tunísia',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.red,
+        Colors.white,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s1.static.brasilescola.uol.com.br/be/2022/10/alemanha.JPG',
       name: 'Alemanha',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.black,
+        Colors.red,
+        Colors.yellow,
+      ],
     ));
     countries.add(CountryModel(
       flag:
           'https://s1.static.brasilescola.uol.com.br/be/2022/10/costa-rica.jpg',
       name: 'Costa Rica',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.blue,
+        Colors.red,
+        Colors.white,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s1.static.brasilescola.uol.com.br/be/2022/10/espanha.jpg',
       name: 'Espanha',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.orange,
+        Colors.yellow,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s4.static.brasilescola.uol.com.br/be/2022/10/japao.jpg',
       name: 'Japão',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.white,
+        Colors.red,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s1.static.brasilescola.uol.com.br/be/2022/10/belgica.jpg',
       name: 'Bélgica',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.black,
+        Colors.yellow,
+        Colors.red,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s4.static.brasilescola.uol.com.br/be/2022/10/canada.JPG',
       name: 'Canadá',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.white,
+        Colors.red,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s1.static.brasilescola.uol.com.br/be/2022/10/croacia.jpg',
       name: 'Croácia',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.red,
+        Colors.white,
+        Colors.blue,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s5.static.brasilescola.uol.com.br/be/2022/10/marrocos.jpg',
       name: 'Marrocos',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.red,
+        Colors.green,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s1.static.brasilescola.uol.com.br/be/2022/10/brasil.JPG',
       name: 'Brasil',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.blue,
+        Colors.green,
+        Colors.yellow,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s2.static.brasilescola.uol.com.br/be/2022/10/camaroes.jpg',
       name: 'Camarões',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.green,
+        Colors.red,
+        Colors.yellow,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s5.static.brasilescola.uol.com.br/be/2022/10/suica.JPG',
       name: 'Suíça',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.red,
+        Colors.white,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s4.static.brasilescola.uol.com.br/be/2022/10/servia.jpg',
       name: 'Sérvia',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.red,
+        Colors.blue,
+        Colors.white,
+      ],
     ));
     countries.add(CountryModel(
       flag:
           'https://s2.static.brasilescola.uol.com.br/be/2022/10/bandeira-coreia-do-sul.jpg',
       name: 'Coreia do Sul',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.red,
+        Colors.blue,
+        Colors.white,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s2.static.brasilescola.uol.com.br/be/2022/10/gana.jpg',
       name: 'Gana',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.red,
+        Colors.green,
+        Colors.yellow,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s4.static.brasilescola.uol.com.br/be/2022/10/portugal.jpg',
       name: 'Portugal',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.red,
+        Colors.green,
+      ],
     ));
     countries.add(CountryModel(
       flag: 'https://s4.static.brasilescola.uol.com.br/be/2022/10/uruguai.jpg',
       name: 'Uruguai',
-      players: [],
+      figures: [],
+      colors: [
+        Colors.blue,
+        Colors.white,
+      ],
     ));
   }
 
@@ -338,6 +484,7 @@ class _AlbumPageState extends State<AlbumPage> {
                         color: colorScheme.onBackground,
                       ),
                     ),
+                    trailing: const Icon(Icons.add),
                   );
                 },
               ),
