@@ -7,7 +7,7 @@ class FootballPlayerModel {
   final String photo;
 
   FootballPlayerModel({
-    id,
+    this.id,
     required this.name,
     required this.number,
     required this.photo,
@@ -15,10 +15,10 @@ class FootballPlayerModel {
 
   factory FootballPlayerModel.fromMap(Map<String, dynamic> map) {
     return FootballPlayerModel(
-      id: map['id'] != null ? map['id'] as int : null,
-      name: map['name'] as String,
-      number: map['number'] as String,
-      photo: map['photo'] as String,
+      id: map['id'],
+      name: map['name'],
+      number: map['number'],
+      photo: map['photo'],
     );
   }
 

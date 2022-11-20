@@ -54,6 +54,7 @@ class _CreateCountryPageState extends State<CreateCountryPage> {
         child: Column(
           children: [
             TextFormField(
+              initialValue: store.countryName,
               onChanged: store.setCountryName,
               decoration: const InputDecoration(
                 label: Text('Nome'),

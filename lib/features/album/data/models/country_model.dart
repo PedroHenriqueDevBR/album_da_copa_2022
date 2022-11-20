@@ -8,17 +8,18 @@ class CountryModel {
   final List<FootballPlayerModel> figures;
 
   CountryModel({
-    id,
+    this.id,
     required this.flag,
     required this.name,
     required this.figures,
   });
 
   factory CountryModel.fromMap(Map<String, dynamic> map) {
+    final id = map['id'];
     return CountryModel(
-      id: map['id'] != null ? map['id'] as int : null,
-      flag: map['flag'] as String,
-      name: map['name'] as String,
+      id: id,
+      flag: map['flag'],
+      name: map['name'],
       figures: [],
     );
   }

@@ -39,6 +39,7 @@ abstract class _CreateCountryStoreBase with Store {
 
   @action
   void loadFlags() {
+    if (savedCountry != null) setCountryName(savedCountry!.name);
     flags.addAll([
       images.catar,
       images.equador,

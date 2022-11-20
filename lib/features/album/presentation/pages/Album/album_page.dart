@@ -1,12 +1,16 @@
-import 'package:album_da_copa_2022/features/album/data/models/country_model.dart';
-import 'package:album_da_copa_2022/features/album/presentation/pages/CreateCountry/create_country_page.dart';
-import 'package:album_da_copa_2022/features/album/presentation/widgets/bottom_button.dart';
-import 'package:album_da_copa_2022/features/album/presentation/widgets/figure_card.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../shared/styles/images.dart';
+import '../../../data/dao/country_dao_implementation.dart';
+import '../../../data/datasources/sqlite_datasource.dart';
+import '../../../data/queries/country_queries.dart';
+import '../../../domain/usecases/queries/fetch_all_countries.dart';
+import '../../widgets/bottom_button.dart';
+import '../../widgets/figure_card.dart';
+import '../CreateCountry/create_country_page.dart';
+import 'stores/album_store.dart';
 
 class AlbumPage extends StatefulWidget {
   const AlbumPage({Key? key}) : super(key: key);
@@ -16,201 +20,18 @@ class AlbumPage extends StatefulWidget {
 }
 
 class _AlbumPageState extends State<AlbumPage> {
-  final images = AppImages();
-  final List<CountryModel> allCountries = [];
-  final List<CountryModel> countries = [];
-
-  void loadCoutries() {
-    allCountries.add(CountryModel(
-      flag:
-          'https://s3.static.brasilescola.uol.com.br/be/2022/10/bandeira-catar.jpg',
-      name: 'Catar',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s2.static.brasilescola.uol.com.br/be/2022/10/equador.jpg',
-      name: 'Equador',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s2.static.brasilescola.uol.com.br/be/2022/10/holanda.JPG',
-      name: 'Holanda',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s2.static.brasilescola.uol.com.br/be/2022/10/senegal.JPG',
-      name: 'Senegal',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag:
-          'https://s3.static.brasilescola.uol.com.br/be/2022/10/estados-unidos.jpg',
-      name: 'Estados Unidos',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag:
-          'https://s4.static.brasilescola.uol.com.br/be/2022/10/bandeira-inglaterra.jpg',
-      name: 'Inglaterra',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s1.static.brasilescola.uol.com.br/be/2022/10/ira.jpg',
-      name: 'Irã',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag:
-          'https://s3.static.brasilescola.uol.com.br/be/2022/10/bandeira-pais-de-gales.jpg',
-      name: 'País de Gales',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag:
-          'https://s5.static.brasilescola.uol.com.br/be/2022/10/argentina.JPG',
-      name: 'Argentina',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag:
-          'https://s3.static.brasilescola.uol.com.br/be/2022/10/arabia-saudita.JPG',
-      name: 'Arábia Saudita',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s5.static.brasilescola.uol.com.br/be/2022/10/mexico.jpg',
-      name: 'México',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag:
-          'https://s3.static.brasilescola.uol.com.br/be/2022/10/bandeira-polonia.jpg',
-      name: 'Polônia',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag:
-          'https://s2.static.brasilescola.uol.com.br/be/2022/10/australia.JPG',
-      name: 'Austrália',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag:
-          'https://s1.static.brasilescola.uol.com.br/be/2022/10/dinamarca.jpg',
-      name: 'Dinamarca',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s4.static.brasilescola.uol.com.br/be/2022/10/franca.jpg',
-      name: 'França',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s1.static.brasilescola.uol.com.br/be/2022/10/tunisia.jpg',
-      name: 'Tunísia',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s1.static.brasilescola.uol.com.br/be/2022/10/alemanha.JPG',
-      name: 'Alemanha',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag:
-          'https://s1.static.brasilescola.uol.com.br/be/2022/10/costa-rica.jpg',
-      name: 'Costa Rica',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s1.static.brasilescola.uol.com.br/be/2022/10/espanha.jpg',
-      name: 'Espanha',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s4.static.brasilescola.uol.com.br/be/2022/10/japao.jpg',
-      name: 'Japão',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s1.static.brasilescola.uol.com.br/be/2022/10/belgica.jpg',
-      name: 'Bélgica',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s4.static.brasilescola.uol.com.br/be/2022/10/canada.JPG',
-      name: 'Canadá',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s1.static.brasilescola.uol.com.br/be/2022/10/croacia.jpg',
-      name: 'Croácia',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s5.static.brasilescola.uol.com.br/be/2022/10/marrocos.jpg',
-      name: 'Marrocos',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s1.static.brasilescola.uol.com.br/be/2022/10/brasil.JPG',
-      name: 'Brasil',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s2.static.brasilescola.uol.com.br/be/2022/10/camaroes.jpg',
-      name: 'Camarões',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s5.static.brasilescola.uol.com.br/be/2022/10/suica.JPG',
-      name: 'Suíça',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s4.static.brasilescola.uol.com.br/be/2022/10/servia.jpg',
-      name: 'Sérvia',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag:
-          'https://s2.static.brasilescola.uol.com.br/be/2022/10/bandeira-coreia-do-sul.jpg',
-      name: 'Coreia do Sul',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s2.static.brasilescola.uol.com.br/be/2022/10/gana.jpg',
-      name: 'Gana',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s4.static.brasilescola.uol.com.br/be/2022/10/portugal.jpg',
-      name: 'Portugal',
-      figures: [],
-    ));
-    allCountries.add(CountryModel(
-      flag: 'https://s4.static.brasilescola.uol.com.br/be/2022/10/uruguai.jpg',
-      name: 'Uruguai',
-      figures: [],
-    ));
-    countries.addAll(allCountries);
-  }
-
-  void filterCoutries(String search) {
-    countries.clear();
-    if (search.isEmpty) {
-      countries.addAll(allCountries);
-    }
-    for (final country in allCountries) {
-      if (country.name.toLowerCase().contains(search.toLowerCase())) {
-        countries.add(country);
-      }
-    }
-    setState(() {});
-  }
+  late final AlbumStore store;
 
   @override
   void initState() {
-    loadCoutries();
+    final countryDao = CountryDaoImplementation(
+      countryQueries: CountrySqlQueriesImplementation(),
+      connection: SQFLiteConnection.instance,
+    );
+    store = AlbumStore(
+      fetchCountries: FetchCountriesQuery(countryDao: countryDao),
+    );
+    store.loadCoutries();
     super.initState();
   }
 
@@ -224,7 +45,7 @@ class _AlbumPageState extends State<AlbumPage> {
         title: const Text('Menu'),
         actions: [
           CircleAvatar(
-            child: Image.asset(images.logo),
+            child: Image.asset(store.images.logo),
           ),
           const SizedBox(width: 8.0),
         ],
@@ -242,7 +63,7 @@ class _AlbumPageState extends State<AlbumPage> {
                 children: [
                   Expanded(
                     child: TextFormField(
-                      onChanged: filterCoutries,
+                      onChanged: store.filterCoutries,
                       decoration: const InputDecoration(
                         fillColor: Colors.white,
                         label: Text('Pesquisar...'),
@@ -251,63 +72,82 @@ class _AlbumPageState extends State<AlbumPage> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CreateCountryPage(),
-                      ),
-                    ),
+                    onPressed: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CreateCountryPage(),
+                        ),
+                      );
+                      store.loadCoutries();
+                    },
                     icon: const Icon(Icons.add),
                   ),
                 ],
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: countries.length,
-                itemBuilder: (_, index) {
-                  final country = countries[index];
-                  return Column(
-                    children: [
-                      ListTile(
-                        leading: SizedBox(
-                          width: 60,
-                          child: Card(
-                            child: CachedNetworkImage(imageUrl: country.flag),
-                          ),
-                        ),
-                        trailing: Text(
-                          country.name,
-                          style: TextStyle(
-                            color: colorScheme.onBackground,
-                            fontSize: 16.0,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 166 * 3,
-                        child: Scrollbar(
-                          interactive: true,
-                          child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 1.5,
-                              mainAxisExtent: 175,
+              child: Observer(builder: (_) {
+                return ListView.builder(
+                  itemCount: store.countries.length,
+                  itemBuilder: (_, index) {
+                    final country = store.countries[index];
+                    return Column(
+                      children: [
+                        ListTile(
+                          leading: SizedBox(
+                            width: 60,
+                            child: Card(
+                              child: Image.asset(country.flag),
                             ),
-                            dragStartBehavior: DragStartBehavior.down,
-                            itemCount: 10,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return const FigureCard();
+                          ),
+                          title: Text(
+                            country.name,
+                            style: TextStyle(
+                              color: colorScheme.onBackground,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          trailing: IconButton(
+                            onPressed: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CreateCountryPage(
+                                    country: country,
+                                  ),
+                                ),
+                              );
+                              store.loadCoutries();
                             },
+                            icon: const Icon(Icons.edit),
                           ),
                         ),
-                      ),
-                    ],
-                  );
-                },
-              ),
+                        SizedBox(
+                          height: 166 * 3,
+                          child: Scrollbar(
+                            interactive: true,
+                            child: GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 1.5,
+                                mainAxisExtent: 175,
+                              ),
+                              dragStartBehavior: DragStartBehavior.down,
+                              itemCount: 10,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return const FigureCard();
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }),
             ),
           ],
         ),
@@ -335,7 +175,7 @@ class _AlbumPageState extends State<AlbumPage> {
                 SizedBox(
                   width: 75,
                   height: 75,
-                  child: Image.asset(images.logo),
+                  child: Image.asset(store.images.logo),
                 ),
                 const SizedBox(width: 16.0),
                 Column(
@@ -365,10 +205,10 @@ class _AlbumPageState extends State<AlbumPage> {
             child: Container(
               color: colorScheme.background,
               child: ListView.separated(
-                itemCount: countries.length,
+                itemCount: store.countries.length,
                 separatorBuilder: (_, __) => const Divider(),
                 itemBuilder: (_, index) {
-                  final country = countries[index];
+                  final country = store.countries[index];
                   return ListTile(
                     leading: SizedBox(
                       width: 50,
