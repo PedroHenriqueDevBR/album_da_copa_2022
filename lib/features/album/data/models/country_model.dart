@@ -3,8 +3,8 @@ import 'football_player.dart';
 
 class CountryModel {
   int? id;
-  final String flag;
-  final String name;
+  String flag;
+  String name;
   final List<FootballPlayerModel> figures;
 
   CountryModel({

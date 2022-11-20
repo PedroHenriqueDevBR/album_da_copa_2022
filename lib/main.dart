@@ -1,3 +1,4 @@
+import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 
 import 'features/album/presentation/pages/Album/album_page.dart';
@@ -14,6 +15,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: Asuka.builder,
+      navigatorObservers: [
+        Asuka
+            .asukaHeroController //This line is needed for the Hero widget to work
+      ],
       title: 'album da Copa Qatar',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
