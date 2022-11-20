@@ -15,6 +15,7 @@ dependencies:
 
   # Data source dependencies
   shared_preferences: ^2.0.15
+  sqflite: ^2.2.0+3
 
   # UI dependencies
   cached_network_image: ^3.2.1
