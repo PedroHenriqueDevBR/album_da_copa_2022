@@ -6,7 +6,11 @@ import 'package:sqflite/sqflite.dart';
 
 import '../queries/database_queries.dart';
 
-class SQFLiteConnection {
+abstract class ConnectionDatabase {
+  Future<Database> get db;
+}
+
+class SQFLiteConnection implements ConnectionDatabase {
   SQFLiteConnection._();
 
   static SQFLiteConnection? _sqfliteConnection;
@@ -19,6 +23,7 @@ class SQFLiteConnection {
   static const databaseVersion = 1;
   Database? _db;
 
+  @override
   Future<Database> get db => _openDatabaseConnection();
 
   Future<Database> _openDatabaseConnection() async {

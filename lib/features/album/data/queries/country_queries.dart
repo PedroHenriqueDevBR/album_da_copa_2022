@@ -1,6 +1,17 @@
 import '../models/country_model.dart';
 
-class CountrySqlQueries {
+abstract class CountrySqlQueries {
+  String createCountry(CountryModel country);
+
+  String getAllCountries();
+
+  String deleteCountry(CountryModel country);
+
+  String updateCountry(CountryModel country);
+}
+
+class CountrySqlQueriesImplementation implements CountrySqlQueries {
+  @override
   String createCountry(CountryModel country) {
     return '''
       INSERT INTO country 
@@ -10,17 +21,20 @@ class CountrySqlQueries {
     ''';
   }
 
+  @override
   String getAllCountries() => '''
     SELECT * FROM country;
   ''';
 
+  @override
   String deleteCountry(CountryModel country) {
     return '''
       DELETE FROM country WHERE id = ${country.id};
     ''';
   }
 
-  String udpateCountry(CountryModel country) {
+  @override
+  String updateCountry(CountryModel country) {
     return '''
       UPDATE country SET
       flag = '${country.flag}',
