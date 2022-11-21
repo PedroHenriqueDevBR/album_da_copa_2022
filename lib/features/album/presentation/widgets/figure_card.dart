@@ -1,23 +1,26 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/models/football_player.dart';
+
 class FigureCard extends StatelessWidget {
-  const FigureCard({Key? key}) : super(key: key);
+  final FootballPlayerModel player;
+  const FigureCard({
+    Key? key,
+    required this.player,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.all(8.0),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(
           Radius.circular(4.0),
         ),
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: CachedNetworkImageProvider(
-            'https://images.pexels.com/photos/159684/soccer-football-soccer-player-sport-159684.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-          ),
+          image: AssetImage(player.photo),
         ),
       ),
       child: Stack(
@@ -38,18 +41,19 @@ class FigureCard extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    '10',
+                    player.number,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontSize: 32.0,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(width: 8.0),
                   Text(
-                    'Jogador',
+                    player.name,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.background,
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                     ),
                   ),
                 ],

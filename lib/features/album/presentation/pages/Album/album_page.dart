@@ -5,7 +5,7 @@ import '../../../data/dao/country_dao_implementation.dart';
 import '../../../data/datasources/sqlite_datasource.dart';
 import '../../../data/queries/country_queries.dart';
 import '../../../domain/usecases/queries/fetch_all_countries.dart';
-import '../CountryDetails/country_details.dart';
+import '../CountryDetails/country_details_page.dart';
 import '../CreateCountry/create_country_page.dart';
 import 'stores/album_store.dart';
 
