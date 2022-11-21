@@ -1,3 +1,4 @@
+import 'package:album_da_copa_2022/shared/styles/images.dart';
 import 'package:asuka/asuka.dart' as asuka;
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -24,6 +25,7 @@ abstract class _CountryDetailsStoreBase with Store {
   late final FetchPlayersByCountryQuery fetchPlayersByCountry;
   late final CountryModel country;
   final players = ObservableList<FootballPlayerModel>();
+  final AppImages images = AppImages();
 
   void loadPlayers() async {
     try {

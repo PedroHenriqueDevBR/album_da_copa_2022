@@ -23,9 +23,15 @@ class CountryDaoImplementation implements CountryDao {
   }) async {
     try {
       final db = await database;
-      final createdId = db.rawInsert(countryQueries.createCountry(country));
+      final createdId =
+          await db.rawInsert(countryQueries.createCountry(country));
       return createdId;
     } on ServerException {
+      rethrow;
+    } on DatabaseException catch (error) {
+      if (error.isUniqueConstraintError()) {
+        throw RegisteredDataException();
+      }
       rethrow;
     }
   }

@@ -1,3 +1,4 @@
+import 'package:album_da_copa_2022/features/album/presentation/pages/PlayerDetails/player_details_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -72,8 +73,17 @@ class _CountryDetailsPageState extends State<CountryDetailsPage> {
                 style: Theme.of(context).textTheme.headline6,
               ),
             ),
+            const SizedBox(height: 8.0),
             Observer(
               builder: (_) {
+                if (store.players.isEmpty) {
+                  return Center(
+                    child: Image.asset(
+                      store.images.abstract,
+                      scale: 2,
+                    ),
+                  );
+                }
                 return GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
@@ -86,7 +96,19 @@ class _CountryDetailsPageState extends State<CountryDetailsPage> {
                   itemCount: store.players.length,
                   itemBuilder: (context, index) {
                     final player = store.players[index];
-                    return FigureCard(player: player);
+                    return FigureCard(
+                      player: player,
+                      onTap: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlayerDetailsPage(
+                              player: player,
+                            ),
+                          ),
+                        );
+                      },
+                    );
                   },
                 );
               },

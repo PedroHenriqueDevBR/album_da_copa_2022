@@ -79,6 +79,8 @@ abstract class _CreatePlayerStoreBase with Store {
         showMessage('Dados registrados');
       } on ServerException {
         showMessage('Sem conexão com o banco de dados');
+      } on RegisteredDataException {
+        showMessage('Jogador já cadastrado!');
       }
     }
   }

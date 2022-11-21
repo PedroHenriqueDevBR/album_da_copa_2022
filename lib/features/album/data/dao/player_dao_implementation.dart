@@ -25,11 +25,16 @@ class FootballPlayerDaoImplementation implements FootballPlayerDao {
   }) async {
     try {
       final db = await database;
-      final createdId = db.rawInsert(playerQueries.createFootballPlayer(
+      final createdId = await db.rawInsert(playerQueries.createFootballPlayer(
         player: player,
         country: country,
       ));
       return createdId;
+    } on DatabaseException catch (error) {
+      if (error.isUniqueConstraintError()) {
+        throw RegisteredDataException();
+      }
+      rethrow;
     } on ServerException {
       rethrow;
     }

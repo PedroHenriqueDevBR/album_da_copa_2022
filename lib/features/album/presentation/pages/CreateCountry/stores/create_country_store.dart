@@ -112,6 +112,8 @@ abstract class _CreateCountryStoreBase with Store {
         country.id = response;
         savedCountry = country;
         showMessage('Dados registrados');
+      } on RegisteredDataException {
+        showMessage('País já cadastrado!');
       } on ServerException {
         showMessage('Erro ao acessar banco de dados');
       }
