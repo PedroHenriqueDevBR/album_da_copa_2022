@@ -43,63 +43,59 @@ abstract class _CreatePlayerStoreBase with Store {
   @action
   void setNumber(String value) => number = value;
 
-  void registerPlayer() {
-    if (savedPlayer == null) {
-      createPlayer();
-    } else {
-      updatePlayer();
-    }
-  }
+  void registerPlayer() =>
+      savedPlayer == null ? _createPlayer() : _updatePlayer();
 
-  bool formIsValid() {
+  void _formIsValid() {
     if (name.isEmpty) {
       showMessage('Informe o nome do jogador');
-      return false;
+      throw InvalidDataException();
     } else if (number.isEmpty) {
       showMessage('Informe o número da camisa');
-      return false;
-    }
-    return true;
-  }
-
-  void createPlayer() async {
-    if (formIsValid()) {
-      try {
-        final player = FootballPlayerModel(
-          name: name,
-          number: number,
-          photo: images.player,
-        );
-        final response = await createPlayerCommand.call(
-          player: player,
-          country: country,
-        );
-        player.id = response;
-        savedPlayer = player;
-        showMessage('Dados registrados');
-      } on ServerException {
-        showMessage('Sem conexão com o banco de dados');
-      } on RegisteredDataException {
-        showMessage('Jogador já cadastrado!');
-      }
+      throw InvalidDataException();
     }
   }
 
-  void updatePlayer() async {
-    if (formIsValid()) {
-      try {
-        savedPlayer!.name = name;
-        savedPlayer!.number = number;
-        await updatePlayerCommand.call(
-          player: savedPlayer!,
-          country: country,
-        );
-        showMessage('Dados registrados');
-      } on NotFoundException {
-        showMessage('Jogador não localizado no banco de dados');
-      } on ServerException {
-        showMessage('Sem conexão com o banco de dados');
-      }
+  void _createPlayer() async {
+    try {
+      _formIsValid();
+      final player = FootballPlayerModel(
+        name: name,
+        number: number,
+        photo: images.player,
+      );
+      final response = await createPlayerCommand.call(
+        player: player,
+        country: country,
+      );
+      player.id = response;
+      savedPlayer = player;
+      showMessage('Dados registrados');
+    } on InvalidDataException {
+      showMessage('Verifique os dados e tente novamente');
+    } on ServerException {
+      showMessage('Sem conexão com o banco de dados');
+    } on RegisteredDataException {
+      showMessage('Jogador já cadastrado!');
+    }
+  }
+
+  void _updatePlayer() async {
+    try {
+      _formIsValid();
+      savedPlayer!.name = name;
+      savedPlayer!.number = number;
+      await updatePlayerCommand.call(
+        player: savedPlayer!,
+        country: country,
+      );
+      showMessage('Dados registrados');
+    } on InvalidDataException {
+      showMessage('Verifique os dados e tente novamente');
+    } on NotFoundException {
+      showMessage('Jogador não localizado no banco de dados');
+    } on ServerException {
+      showMessage('Sem conexão com o banco de dados');
     }
   }
 

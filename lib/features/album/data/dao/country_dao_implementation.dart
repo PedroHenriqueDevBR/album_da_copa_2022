@@ -7,15 +7,18 @@ import '../models/country_model.dart';
 import '../queries/country_queries.dart';
 
 class CountryDaoImplementation implements CountryDao {
-  final CountrySqlQueries countryQueries;
-  final ConnectionDatabase connection;
+  late final CountrySqlQueries _countryQueries;
+  late final ConnectionDatabase _connection;
 
   CountryDaoImplementation({
-    required this.countryQueries,
-    required this.connection,
-  });
+    required CountrySqlQueries countryQueries,
+    required ConnectionDatabase connection,
+  }) {
+    _countryQueries = countryQueries;
+    _connection = connection;
+  }
 
-  Future<Database> get database async => await connection.db;
+  Future<Database> get database async => await _connection.db;
 
   @override
   Future<int> createCountry({
@@ -24,7 +27,7 @@ class CountryDaoImplementation implements CountryDao {
     try {
       final db = await database;
       final createdId =
-          await db.rawInsert(countryQueries.createCountry(country));
+          await db.rawInsert(_countryQueries.createCountry(country));
       return createdId;
     } on ServerException {
       rethrow;
@@ -43,7 +46,7 @@ class CountryDaoImplementation implements CountryDao {
     try {
       final db = await database;
       final affectedRows = await db.rawUpdate(
-        countryQueries.updateCountry(country),
+        _countryQueries.updateCountry(country),
       );
       if (affectedRows == 0) throw NotFoundException();
     } on NotFoundException {
@@ -56,7 +59,7 @@ class CountryDaoImplementation implements CountryDao {
     try {
       final db = await database;
       List<Map<String, dynamic>> response =
-          await db.rawQuery(countryQueries.getAllCountries());
+          await db.rawQuery(_countryQueries.getAllCountries());
       List<CountryModel> countries = CountryModel.fromMapList(response);
       return countries;
     } catch (error) {
@@ -71,7 +74,7 @@ class CountryDaoImplementation implements CountryDao {
     try {
       final db = await database;
       final affectedRows = await db.rawDelete(
-        countryQueries.deleteCountry(country),
+        _countryQueries.deleteCountry(country),
       );
       if (affectedRows == 0) throw NotFoundException();
     } on NotFoundException {

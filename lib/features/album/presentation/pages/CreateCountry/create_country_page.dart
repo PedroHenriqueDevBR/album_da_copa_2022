@@ -1,10 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:album_da_copa_2022/features/album/data/models/country_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../data/dao/country_dao_implementation.dart';
 import '../../../data/datasources/sqlite_datasource.dart';
+import '../../../data/models/country_model.dart';
 import '../../../data/queries/country_queries.dart';
 import '../../../domain/usecases/commands/create_country_command.dart';
 import '../../../domain/usecases/commands/update_country_command.dart';

@@ -16,10 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       builder: Asuka.builder,
-      navigatorObservers: [
-        Asuka
-            .asukaHeroController //This line is needed for the Hero widget to work
-      ],
+      navigatorObservers: [Asuka.asukaHeroController],
       title: 'album da Copa Qatar',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,

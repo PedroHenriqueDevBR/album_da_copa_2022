@@ -81,55 +81,51 @@ abstract class _CreateCountryStoreBase with Store {
   @action
   void selectFlag(int index) => selectedFlagIndex = index;
 
-  void registerCountry() {
-    if (savedCountry == null) {
-      _createCountry();
-    } else {
-      _updateCountry();
-    }
-  }
+  void registerCountry() =>
+      savedCountry == null ? _createCountry() : _updateCountry();
 
-  bool _isValidForm() {
+  void _isValidForm() {
     if (countryName.isEmpty) {
       showMessage('Digite o nome do país');
-      return false;
+      throw InvalidDataException();
     } else if (selectedFlagIndex == -1) {
       showMessage('Selecione uma bandeira');
-      return false;
+      throw InvalidDataException();
     }
-    return true;
   }
 
   void _createCountry() async {
-    if (_isValidForm()) {
-      try {
-        CountryModel country = CountryModel(
-          flag: flags[selectedFlagIndex],
-          name: countryName,
-          figures: [],
-        );
-        final response = await createCountryCommand.call(country: country);
-        country.id = response;
-        savedCountry = country;
-        showMessage('Dados registrados');
-      } on RegisteredDataException {
-        showMessage('País já cadastrado!');
-      } on ServerException {
-        showMessage('Erro ao acessar banco de dados');
-      }
+    try {
+      _isValidForm();
+      CountryModel country = CountryModel(
+        flag: flags[selectedFlagIndex],
+        name: countryName,
+        figures: [],
+      );
+      final response = await createCountryCommand.call(country: country);
+      country.id = response;
+      savedCountry = country;
+      showMessage('Dados registrados');
+    } on InvalidDataException {
+      showMessage('Verifique os dados e tente novamente');
+    } on RegisteredDataException {
+      showMessage('País já cadastrado!');
+    } on ServerException {
+      showMessage('Erro ao acessar banco de dados');
     }
   }
 
   void _updateCountry() async {
-    if (_isValidForm()) {
-      try {
-        savedCountry!.name = countryName;
-        savedCountry!.flag = flags[selectedFlagIndex];
-        await updateCountryCommand.call(country: savedCountry!);
-        showMessage('Dados registrados');
-      } on ServerException {
-        showMessage('Erro ao acessar banco de dados');
-      }
+    try {
+      _isValidForm();
+      savedCountry!.name = countryName;
+      savedCountry!.flag = flags[selectedFlagIndex];
+      await updateCountryCommand.call(country: savedCountry!);
+      showMessage('Dados registrados');
+    } on InvalidDataException {
+      showMessage('Verifique os dados e tente novamente');
+    } on ServerException {
+      showMessage('Erro ao acessar banco de dados');
     }
   }
 

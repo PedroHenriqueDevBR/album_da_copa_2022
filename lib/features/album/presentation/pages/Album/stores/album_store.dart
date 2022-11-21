@@ -13,24 +13,23 @@ class AlbumStore extends _AlbumStoreBase with _$AlbumStore {
   AlbumStore({
     required FetchCountriesQuery fetchCountries,
   }) {
-    super.fetchCountries = fetchCountries;
+    super._fetchCountries = fetchCountries;
   }
 }
 
 abstract class _AlbumStoreBase with Store {
+  final _allCountries = ObservableList<CountryModel>();
+  late final FetchCountriesQuery _fetchCountries;
+
   final images = AppImages();
-
-  late final FetchCountriesQuery fetchCountries;
-
-  ObservableList<CountryModel> allCountries = ObservableList<CountryModel>();
-  ObservableList<CountryModel> countries = ObservableList<CountryModel>();
+  final countries = ObservableList<CountryModel>();
 
   void loadCoutries() async {
     try {
-      final response = await fetchCountries.call();
-      allCountries.clear();
+      final response = await _fetchCountries.call();
+      _allCountries.clear();
       countries.clear();
-      allCountries.addAll(response);
+      _allCountries.addAll(response);
       countries.addAll(response);
     } on ServerException {
       asuka.showSnackBar(
@@ -42,9 +41,9 @@ abstract class _AlbumStoreBase with Store {
   void filterCoutries(String search) {
     countries.clear();
     if (search.isEmpty) {
-      countries.addAll(allCountries);
+      countries.addAll(_allCountries);
     }
-    for (final country in allCountries) {
+    for (final country in _allCountries) {
       if (country.name.toLowerCase().contains(search.toLowerCase())) {
         countries.add(country);
       }
