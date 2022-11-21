@@ -1,16 +1,19 @@
-import 'package:album_da_copa_2022/features/album/presentation/pages/PlayerDetails/player_details_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../data/dao/country_dao_implementation.dart';
 import '../../../data/dao/player_dao_implementation.dart';
 import '../../../data/datasources/sqlite_datasource.dart';
 import '../../../data/models/country_model.dart';
+import '../../../data/queries/country_queries.dart';
 import '../../../data/queries/football_player_queries.dart';
+import '../../../domain/usecases/commands/delete_country_command.dart';
 import '../../../domain/usecases/queries/fetch_players_by_country.dart';
 import '../../widgets/bottom_button.dart';
 import '../../widgets/figure_card.dart';
 import '../CreatePlayer/create_player_page.dart';
+import '../PlayerDetails/player_details_page.dart';
 import 'stores/country_details_store.dart';
 
 class CountryDetailsPage extends StatefulWidget {
@@ -33,7 +36,12 @@ class _CountryDetailsPageState extends State<CountryDetailsPage> {
       playerQueries: FootballPlayerSqlQueriesImplementation(),
       connection: SQFLiteConnection.instance,
     );
+    final countryDao = CountryDaoImplementation(
+      countryQueries: CountrySqlQueriesImplementation(),
+      connection: SQFLiteConnection.instance,
+    );
     store = CountryDetailsStore(
+      deleteCountryCommand: DeleteCountryCommand(countryDao: countryDao),
       fetchPlayersByCountry: FetchPlayersByCountryQuery(playerDao: playerDao),
       country: widget.country,
     );
@@ -51,7 +59,10 @@ class _CountryDetailsPageState extends State<CountryDetailsPage> {
         title: Text(store.country.name),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              await store.deleteCountry();
+              Navigator.pop(context);
+            },
             icon: const Icon(Icons.delete),
           ),
         ],
@@ -99,7 +110,7 @@ class _CountryDetailsPageState extends State<CountryDetailsPage> {
                     return FigureCard(
                       player: player,
                       onTap: () async {
-                        Navigator.push(
+                        await Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => PlayerDetailsPage(
@@ -107,6 +118,7 @@ class _CountryDetailsPageState extends State<CountryDetailsPage> {
                             ),
                           ),
                         );
+                        store.loadPlayers();
                       },
                     );
                   },

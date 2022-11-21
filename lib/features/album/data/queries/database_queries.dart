@@ -15,7 +15,7 @@ class DatabaseSQLQueries {
   CREATE TABLE "$footballPlayer" (
     "id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
     "name"	TEXT NOT NULL UNIQUE,
-    "number"	TEXT NOT NULL UNIQUE,
+    "number"	TEXT NOT NULL,
     "photo"	TEXT,
     "country"	INTEGER NOT NULL,
     FOREIGN KEY("country") REFERENCES "country"("id")

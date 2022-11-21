@@ -112,13 +112,16 @@ class _AlbumPageState extends State<AlbumPage> {
                       return Column(
                         children: [
                           ListTile(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    CountryDetailsPage(country: country),
-                              ),
-                            ),
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      CountryDetailsPage(country: country),
+                                ),
+                              );
+                              store.loadCoutries();
+                            },
                             leading: SizedBox(
                               width: 60,
                               child: Card(

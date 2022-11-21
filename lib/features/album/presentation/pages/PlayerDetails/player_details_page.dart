@@ -1,7 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:album_da_copa_2022/features/album/data/models/football_player.dart';
-import 'package:album_da_copa_2022/features/album/presentation/widgets/figure_card.dart';
 import 'package:flutter/material.dart';
+
+import '../../../data/dao/player_dao_implementation.dart';
+import '../../../data/datasources/sqlite_datasource.dart';
+import '../../../data/models/football_player.dart';
+import '../../../data/queries/football_player_queries.dart';
+import '../../../domain/usecases/commands/delete_player_command.dart';
+import '../../widgets/figure_card.dart';
+import 'stores/player_details_store.dart';
 
 class PlayerDetailsPage extends StatefulWidget {
   final FootballPlayerModel player;
@@ -15,11 +20,18 @@ class PlayerDetailsPage extends StatefulWidget {
 }
 
 class _PlayerDetailsPageState extends State<PlayerDetailsPage> {
-  late final FootballPlayerModel player;
+  late final PlayerDetailsStore store;
 
   @override
   void initState() {
-    player = widget.player;
+    final playerDao = FootballPlayerDaoImplementation(
+      playerQueries: FootballPlayerSqlQueriesImplementation(),
+      connection: SQFLiteConnection.instance,
+    );
+    store = PlayerDetailsStore(
+      deletePlayerCommand: DeletePlayerCommand(playerDao: playerDao),
+      player: widget.player,
+    );
     super.initState();
   }
 
@@ -30,10 +42,13 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage> {
     return Scaffold(
       backgroundColor: colorScheme.primary,
       appBar: AppBar(
-        title: Text(player.name),
+        title: Text(store.player.name),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              await store.deletePlayer();
+              Navigator.pop(context);
+            },
             icon: const Icon(Icons.delete),
           ),
         ],
@@ -41,7 +56,7 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: FigureCard(
-          player: player,
+          player: store.player,
           onTap: (() => Navigator.pop(context)),
         ),
       ),
