@@ -86,6 +86,24 @@ class _AlbumPageState extends State<AlbumPage> {
             Expanded(
               child: Observer(
                 builder: (_) {
+                  if (store.countries.isEmpty) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(store.images.think, scale: 3),
+                          const SizedBox(height: 16.0),
+                          const Text(
+                            'Hmmmmmm, \nNão tem nada por aqui!!!',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
                   return ListView.separated(
                     separatorBuilder: (_, __) => const Divider(),
                     itemCount: store.countries.length,
