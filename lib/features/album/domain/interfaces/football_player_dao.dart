@@ -1,5 +1,5 @@
-import 'package:album_da_copa_2022/features/album/data/models/country_model.dart';
-import 'package:album_da_copa_2022/features/album/data/models/football_player.dart';
+import '../../data/models/country_model.dart';
+import '../../data/models/football_player.dart';
 
 abstract class FootballPlayerDao {
   Future<List<FootballPlayerModel>> getAllFootbalPlayers();

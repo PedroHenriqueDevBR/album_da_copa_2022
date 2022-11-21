@@ -1,4 +1,4 @@
-import 'package:album_da_copa_2022/features/album/data/models/country_model.dart';
+import '../../data/models/country_model.dart';
 
 abstract class CountryDao {
   Future<List<CountryModel>> getAllCountries();

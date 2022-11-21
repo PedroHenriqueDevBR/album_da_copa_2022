@@ -1,10 +1,11 @@
-import 'package:album_da_copa_2022/features/album/data/models/country_model.dart';
-import 'package:album_da_copa_2022/features/album/domain/usecases/queries/fetch_all_countries.dart';
-import 'package:album_da_copa_2022/shared/errors/custom_exceptions.dart';
-import 'package:album_da_copa_2022/shared/styles/images.dart';
 import 'package:asuka/asuka.dart' as asuka;
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../../../../../shared/errors/custom_exceptions.dart';
+import '../../../../../../shared/styles/images.dart';
+import '../../../../data/models/country_model.dart';
+import '../../../../domain/usecases/queries/fetch_all_countries.dart';
 
 part 'album_store.g.dart';
 
