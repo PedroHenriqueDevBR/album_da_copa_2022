@@ -2,9 +2,9 @@
 
 class FootballPlayerModel {
   int? id;
-  final String name;
-  final String number;
-  final String photo;
+  String name;
+  String number;
+  String photo;
 
   FootballPlayerModel({
     this.id,

@@ -1,5 +1,6 @@
 class AppImages {
   final String logo = 'assets/images/logo.png';
+  final String player = 'assets/images/player.jpeg';
   final String curvedBackground = 'assets/images/curved_background.png';
 
   // Flag Images
